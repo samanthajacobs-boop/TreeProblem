@@ -1,4 +1,4 @@
-from typing import Optional, Callable, TypeVar, Generic
+from typing import Optional, Callable, TypeVar, Generic, List
 
 
 #from bstnode import BSTNode
@@ -48,7 +48,6 @@ class BST(Generic[T, K]):
         else:
             return self.root.length()
         
-        #def bst_insert(value: T, root: Node[T])-> Node[T]:
         
 
     def add_value(self, value: T) -> None:
@@ -161,7 +160,22 @@ class BST(Generic[T, K]):
         :return:
         :raises MissingValueError if the node does not exist
         """
-    
+    def inorder(self,results: List[BSTNode[T]]) -> None:
+        if self.root is None:
+            raise EmptyTreeError()
+        else:
+            return self.inorder_recurse(self.root, results)
+
+    def inorder_recurse(self, node: BSTNode[T], results: List[BSTNode[T]]) -> BSTNode[T]:
+        if node.left:
+            self.inorder_recurse(node.left,results)
+        #print (node.value)
+        results.append(node)
+        if node.right:
+            self.inorder_recurse(node.right, results)
+       
+
+ 
 
     def __eq__(self, other: object) -> bool:
         if self is other:

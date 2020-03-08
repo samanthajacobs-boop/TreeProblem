@@ -39,7 +39,7 @@ if __name__ == '__main__':
                     cmd = 'who'
                     amount = int(cmdstring)
             else:
-                print ("Wrong argument given for who cmmand")
+                print ("Wrong argument given for who command")
                 exit()
 
         else:
@@ -61,6 +61,7 @@ if __name__ == '__main__':
     #    print (donor)
 
     tree = BST()
+    results = []
 
     for donor in donors:
         tree.add_value (donor)
@@ -70,14 +71,39 @@ if __name__ == '__main__':
     elif  cmd == 'cheap':
         print (tree.get_min_node().value)
     elif  cmd == 'all':
-        for x in tree:
-            print (x)
-        
-    print ("find len",len(tree))
-    print ("find height",tree.height())
-    print ("find 19",tree.get_node(19).value)
-    print ("cheap",tree.get_min_node().value)
-    print ("rich",tree.get_max_node().value)
-    print ("find 1742",tree.get_node(1742))
+        tree.inorder(results)
+        for x in results:
+            print (x.value)
+    elif  cmd == 'list_above':
+        tree.inorder(results)
+        no_match = True
+        for x in results:
+            if x.value.value >= amount:
+                print (x.value)
+                no_match = False
+                break
+        if no_match:
+            print ("No Match")
 
+    elif  cmd == 'list_below':
+        tree.inorder(results)
+        no_match = True
+        for x in reversed(results):
+            if x.value.value < amount:
+                print (x.value)
+                no_match = False
+                break
+        if no_match:
+            print ("No Match")
+
+    elif  cmd == 'who':
+        tree.inorder(results)
+        no_match = True
+        for x in results:
+            if x.value.value == amount:
+                print (x.value)
+                no_match = False
+                break
+        if no_match:
+            print ("No Match")
 

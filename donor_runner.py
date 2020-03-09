@@ -5,8 +5,8 @@ from typing import Tuple
 import sys
 
 def parse_line(line:str) -> Tuple[str]:
-    name, value = line.split(':')
-    return  name, int(value)
+    name, amount = line.split(':')
+    return  name, int(amount)
 
 
 if __name__ == '__main__':
@@ -78,7 +78,7 @@ if __name__ == '__main__':
         tree.inorder(results)
         no_match = True
         for x in results:
-            if x.value.value >= amount:
+            if x.value.amount >= amount:
                 print (x.value)
                 no_match = False
                 break
@@ -89,7 +89,7 @@ if __name__ == '__main__':
         tree.inorder(results)
         no_match = True
         for x in reversed(results):
-            if x.value.value < amount:
+            if x.value.amount < amount:
                 print (x.value)
                 no_match = False
                 break
@@ -100,7 +100,7 @@ if __name__ == '__main__':
         tree.inorder(results)
         no_match = True
         for x in results:
-            if x.value.value == amount:
+            if x.value.amount == amount:
                 print (x.value)
                 no_match = False
                 break

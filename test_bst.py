@@ -183,7 +183,91 @@ class TestBST(unittest.TestCase):
         tree = BST(node)
         self.assertEqual(tree.get_node(45).value, 45)
 
+    def test_remove_leaf(self):
+        tree = BST()
+        tree.add_value(100)
+        tree.add_value(80)
+        tree.add_value(200)
+        tree.add_value(90)
+        tree.add_value(70)
+        
+        tree.remove_value(70)
+        results = []
+        values = []
+        tree.inorder(results)
+        
+        for x in results:
+            value = x.value
+            values.append(value)
+
+        self.assertEqual(values, [80, 90, 100, 200])
     
+    def test_remove_empty(self):
+        tree = BST()
+        with self.assertRaises(EmptyTreeError):
+            tree.remove_value(70)
+
+    def test_remove_right_child(self):
+        tree = BST()
+        tree.add_value(100)
+        tree.add_value(80)
+        tree.add_value(200)
+        tree.add_value(90)
+        tree.add_value(70)
+        tree.add_value(150)
+
+        tree.remove_value(200)
+        results = []
+        values = []
+        tree.inorder(results)
+
+        for x in results:
+            value = x.value
+            values.append(value)
+
+        self.assertEqual(values, [70, 80, 90, 100, 150])
+    
+
+    def test_remove_left_child(self):
+        tree = BST()
+        tree.add_value(100)
+        tree.add_value(80)
+        tree.add_value(200)
+        tree.add_value(90)
+        tree.add_value(70)
+
+        tree.remove_value(200)
+        results = []
+        values = []
+        tree.inorder(results)
+
+        for x in results:
+            value = x.value
+            values.append(value)
+
+        self.assertEqual(values, [70, 80, 90, 100])
+    
+
+    def test_remove_both_children(self):
+        tree = BST()
+        tree.add_value(100)
+        tree.add_value(80)
+        tree.add_value(200)
+        tree.add_value(90)
+        tree.add_value(70)
+        tree.add_value(150)
+
+        tree.remove_value(80)
+        results = []
+        values = []
+        tree.inorder(results)
+
+        for x in results:
+            value = x.value
+            values.append(value)
+
+        self.assertEqual(values, [70, 90, 100, 150, 200])
+
 
 if __name__ == '__main__':
     unittest.main()

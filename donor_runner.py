@@ -66,6 +66,8 @@ if __name__ == '__main__':
     for donor in donors:
         tree.add_value (donor)
 
+    #tree.get_node(18)
+
     if cmd == 'rich':
         print (tree.get_max_node().value)
     elif  cmd == 'cheap':

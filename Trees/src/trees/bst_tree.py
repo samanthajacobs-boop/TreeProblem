@@ -151,6 +151,7 @@ class BST(Generic[T, K]):
 #                successor = bst_max(node_to_remove.left)
 #                bst_remove(successor.value, successor.parent)
 #                node_to_remove.parent.replace_child(node_to_remove, successor)
+    def remove_value(self, value: T) -> None:
         """
         Remove the node with the specified value.
         When removing a node with 2 children take the successor for that node
@@ -160,6 +161,70 @@ class BST(Generic[T, K]):
         :return:
         :raises MissingValueError if the node does not exist
         """
+        if self.root is None:
+            raise EmptyTreeError()
+        elif self.root.value == value:     # matches parent
+            return
+        parent = None
+        node = self.root
+        # find node to remove
+        while node and node.value != value:
+            parent = node
+            if value < node.value:
+                node = node.left
+            elif value > node.value:
+                node = node.right
+
+        # if not found has error
+        if node is None or node.value != value:
+            raise MissingValueError()
+
+        # easy case, no children
+        elif node.left is None and node.right is None:
+            if value < parent.value:
+                parent.left = None
+            else:
+                parent.right = None
+            return
+
+        # left node only
+        elif node.left and node.right is None:
+            if value < parent.value:
+                parent.left = node.left
+            else:
+                parent.right = node.left
+            return
+
+        # right node only
+        elif node.left is None and node.right:
+            if value < parent.value:
+                parent.left = node.right
+            else:
+                parent.right = node.right
+            return
+
+        # both children exist
+        else:
+            delNodeParent = node
+            delNode = node.right
+            while delNode.left:
+                delNodeParent = delNode
+                delNode = delNode.left
+		
+            node.value = delNode.value
+            if delNode.right:
+                if delNodeParent.value > delNode.value:
+                    delNodeParent.left = delNode.right
+                elif delNodeParent.value < delNode.value:
+                    delNodeParent.right = delNode.right
+            else:
+                if delNode.value < delNodeParent.value:
+                    delNodeParent.left = None
+                else:
+                    delNodeParent.right = None
+
+#########################  end remove #######################
+
     def inorder(self,results: List[BSTNode[T]]) -> None:
         if self.root is None:
             raise EmptyTreeError()

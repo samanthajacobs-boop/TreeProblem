@@ -66,7 +66,7 @@ class BST(Generic[T, K]):
         #if node.value == value:
         #    return   # come back and allow dups
         #elif node.value > value:
-        if node.value >= value:
+        if node.value > value:
             if node.left:
                 return self.insert_recurse(value,node.left)
             else:

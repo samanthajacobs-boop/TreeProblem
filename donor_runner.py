@@ -60,13 +60,12 @@ if __name__ == '__main__':
     #for donor in donors:
     #    print (donor)
 
-    tree = BST()
+    tree = BST(key=lambda x: x.amount)
     results = []
 
     for donor in donors:
         tree.add_value (donor)
 
-    #tree.get_node(18)
 
     if cmd == 'rich':
         print (tree.get_max_node().value)
@@ -99,13 +98,10 @@ if __name__ == '__main__':
             print ("No Match")
 
     elif  cmd == 'who':
-        tree.inorder(results)
-        no_match = True
-        for x in results:
-            if x.value.amount == amount:
-                print (x.value)
-                no_match = False
-                break
-        if no_match:
+        try:
+            tree.get_node(amount)
+        except:
             print ("No Match")
+        else:
+            print(tree.get_node(amount).value)
 

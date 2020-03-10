@@ -152,6 +152,8 @@ class BST(Generic[T, K]):
 #                successor = bst_max(node_to_remove.left)
 #                bst_remove(successor.value, successor.parent)
 #                node_to_remove.parent.replace_child(node_to_remove, successor)
+
+
     def remove_value(self, value: K) -> None:
         """
         Remove the node with the specified value.
@@ -162,27 +164,32 @@ class BST(Generic[T, K]):
         :return:
         :raises MissingValueError if the node does not exist
         """
+        self.remove_value_helper(value,self.key)
+        return
+
+
+    def remove_value_helper(self, value: K, key: Callable[[T], K]) -> None:
         if self.root is None:
             raise EmptyTreeError()
-        elif self.root.value == value:     # matches parent
+        elif key(self.root.value) == value:     # matches parent
             return
         parent = None
         node = self.root
         # find node to remove
-        while node and node.value != value:
+        while node and key(node.value) != value:
             parent = node
-            if value < node.value:
+            if value < key(node.value):
                 node = node.left
-            elif value > node.value:
+            elif value > key(node.value):
                 node = node.right
 
         # if not found has error
-        if node is None or node.value != value:
+        if node is None or key(node.value) != value:
             raise MissingValueError()
 
         # easy case, no children
         elif node.left is None and node.right is None:
-            if value < parent.value:
+            if value < key(parent.value):
                 parent.left = None
             else:
                 parent.right = None
@@ -190,7 +197,7 @@ class BST(Generic[T, K]):
 
         # left node only
         elif node.left and node.right is None:
-            if value < parent.value:
+            if value < key(parent.value):
                 parent.left = node.left
             else:
                 parent.right = node.left
@@ -198,7 +205,7 @@ class BST(Generic[T, K]):
 
         # right node only
         elif node.left is None and node.right:
-            if value < parent.value:
+            if value < key(parent.value):
                 parent.left = node.right
             else:
                 parent.right = node.right
@@ -214,12 +221,12 @@ class BST(Generic[T, K]):
 		
             node.value = delNode.value
             if delNode.right:
-                if delNodeParent.value > delNode.value:
+                if key(delNodeParent.value) > key(delNode.value):
                     delNodeParent.left = delNode.right
-                elif delNodeParent.value < delNode.value:
+                elif key(delNodeParent.value) < key(delNode.value):
                     delNodeParent.right = delNode.right
             else:
-                if delNode.value < delNodeParent.value:
+                if key(delNode.value) < key(delNodeParent.value):
                     delNodeParent.left = None
                 else:
                     delNodeParent.right = None

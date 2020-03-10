@@ -26,6 +26,7 @@ class BST(Generic[T, K]):
         functions
         """
         self.root = root
+        self.key = key
 
     #@property
     def height(self) -> int:
@@ -57,25 +58,25 @@ class BST(Generic[T, K]):
         :return:
         """
         if self.root:
-            return self.insert_recurse(value, self.root)
+            return self.insert_recurse(value, self.root,self.key)
         else:
             self.root = BSTNode(value)
             return
 
-    def insert_recurse(self, value: T, node: BSTNode[T]) -> BSTNode[T]:
+    def insert_recurse(self, value: T, node: BSTNode[T], key: Callable[[T], K]) -> BSTNode[T]:
         #if node.value == value:
         #    return   # come back and allow dups
         #elif node.value > value:
-        if node.value > value:
+        if key(node.value) > key(value):
             if node.left:
-                return self.insert_recurse(value,node.left)
+                return self.insert_recurse(value,node.left,key)
             else:
                 node.left = BSTNode(value)
                 return
 
         else:
             if node.right:
-                return self.insert_recurse(value,node.right)
+                return self.insert_recurse(value,node.right,key)
             else:
                 node.right = BSTNode(value)
                 return
@@ -90,20 +91,20 @@ class BST(Generic[T, K]):
         if self.root is None:
             raise EmptyTreeError()
         else:
-            return self.get_node_recurse(value, self.root)
+            return self.get_node_recurse(value, self.root,self.key)
 
 
-    def get_node_recurse(self, value: K,node: BSTNode[T]) -> BSTNode[T]:    
+    def get_node_recurse(self, value: K,node: BSTNode[T],key: Callable[[T], K]) -> BSTNode[T]:    
         try:
-            value == node.value
+            value == key(node.value)
         except:
             raise MissingValueError()
-        if value == node.value:
+        if value == key(node.value):
             return node
-        elif value < node.value:
-            return self.get_node_recurse(value, node.left)
+        elif value < key(node.value):
+            return self.get_node_recurse(value, node.left,key)
         else:
-            return self.get_node_recurse(value, node.right)
+            return self.get_node_recurse(value, node.right,key)
         
 
     def get_max_node(self) -> BSTNode[T]:
@@ -151,7 +152,7 @@ class BST(Generic[T, K]):
 #                successor = bst_max(node_to_remove.left)
 #                bst_remove(successor.value, successor.parent)
 #                node_to_remove.parent.replace_child(node_to_remove, successor)
-    def remove_value(self, value: T) -> None:
+    def remove_value(self, value: K) -> None:
         """
         Remove the node with the specified value.
         When removing a node with 2 children take the successor for that node

@@ -29,17 +29,23 @@ if __name__ == '__main__':
         elif sys.argv[2] == 'who':
             if len(sys.argv) == 4:     # extra who arg
                 cmdstring = sys.argv[3]
-                if cmdstring[0] == '+':
-                    cmd = 'list_above'
+                try:
                     amount = int(cmdstring)
-                elif cmdstring[0] == '-':
-                    cmd = 'list_below'
-                    amount = int(cmdstring)*-1
+                except:
+                    print ("Bad amount given:",cmdstring)
+                    exit()
                 else:
-                    cmd = 'who'
                     amount = int(cmdstring)
+
+                    if cmdstring[0] == '+':
+                        cmd = 'list_above'
+                    elif cmdstring[0] == '-':
+                        cmd = 'list_below'
+                        amount = amount*-1
+                    else:
+                        cmd = 'who'
             else:
-                print ("Wrong argument given for who command")
+                print ("No extra argument given for who command")
                 exit()
 
         else:
@@ -60,13 +66,12 @@ if __name__ == '__main__':
     #for donor in donors:
     #    print (donor)
 
-    tree = BST()
+    tree = BST(key=lambda x: x.amount)
     results = []
 
     for donor in donors:
         tree.add_value (donor)
 
-    #tree.get_node(18)
 
     if cmd == 'rich':
         print (tree.get_max_node().value)
@@ -99,13 +104,10 @@ if __name__ == '__main__':
             print ("No Match")
 
     elif  cmd == 'who':
-        tree.inorder(results)
-        no_match = True
-        for x in results:
-            if x.value.amount == amount:
-                print (x.value)
-                no_match = False
-                break
-        if no_match:
+        try:
+            tree.get_node(amount)
+        except:
             print ("No Match")
+        else:
+            print(tree.get_node(amount).value)
 

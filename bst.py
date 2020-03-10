@@ -20,18 +20,36 @@ if __name__ == '__main__':
     print ("Tree min:", node_min.value) 
     node_max = tree.get_max_node()
     print ("Tree max:", node_max.value)
+
+
     node_45 = tree.get_node(45)
     print ("Tree 45", node_45.value)
     node_50 = tree.get_node(50)
     print ("Tree 50", node_50.value)
+    print ("add node")
+    tree.add_value(100)
+    print ("Tree height:", tree.height())
+    print ("Tree length:", len(tree))
+
+
+
+
+
+
     new_tree = BST()
+
     new_tree.add_value(100)
     new_tree.add_value(75)
     new_tree.add_value(200)
     new_tree.add_value(300)
     new_tree.add_value(30)
     new_tree.add_value(30)
-    new_tree.add_value(30)
+    new_tree.add_value(20)
+
+    print ("Test get mode with key 200")
+    node_get_200 = new_tree.get_node(200)
+    print ("results", node_get_200.value)
+
     print ("Tree height:", new_tree.height())
     print ("Tree length:", len(new_tree))
 
@@ -41,3 +59,49 @@ if __name__ == '__main__':
 
     print ("new_tree 100", node_100.value)
     print ("new_tree 75", new_tree.get_node(75).value)
+    print ("new_tree 20", new_tree.get_node(20).value)
+
+    print ("removing 20")
+    new_tree.remove_value(20)
+    print ("Tree height:", new_tree.height())
+    print ("Tree length:", len(new_tree))
+ #   print ("new_tree get 20", new_tree.get_node(20).value)
+
+    print ("new_tree get 200", new_tree.get_node(200).value)
+    print ("removing 200")
+    new_tree.remove_value(200)
+    print ("Tree height:", new_tree.height())
+    print ("Tree length:", len(new_tree))
+#    print ("new_tree get 200", new_tree.get_node(200).value)
+
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+    print ("new_tree added 80")
+    new_tree.add_value(80)
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+# remove a double node
+    print ("removing 75")
+    new_tree.remove_value(75)
+    print ("Tree height:", new_tree.height())
+    print ("Tree length:", len(new_tree))
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+# remove root
+    print ("removing 100")
+    new_tree.remove_value(100)
+    print ("Tree height:", new_tree.height())
+    print ("Tree length:", len(new_tree))
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)

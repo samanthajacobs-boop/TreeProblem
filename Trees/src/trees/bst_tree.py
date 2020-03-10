@@ -58,25 +58,25 @@ class BST(Generic[T, K]):
         :return:
         """
         if self.root:
-            return self.insert_recurse(value, self.root)
+            return self.insert_recurse(value, self.root,self.key)
         else:
             self.root = BSTNode(value)
             return
 
-    def insert_recurse(self, value: T, node: BSTNode[T]) -> BSTNode[T]:
+    def insert_recurse(self, value: T, node: BSTNode[T], key: Callable[[T], K]) -> BSTNode[T]:
         #if node.value == value:
         #    return   # come back and allow dups
         #elif node.value > value:
-        if node.value > value:
+        if key(node.value) > key(value):
             if node.left:
-                return self.insert_recurse(value,node.left)
+                return self.insert_recurse(value,node.left,key)
             else:
                 node.left = BSTNode(value)
                 return
 
         else:
             if node.right:
-                return self.insert_recurse(value,node.right)
+                return self.insert_recurse(value,node.right,key)
             else:
                 node.right = BSTNode(value)
                 return

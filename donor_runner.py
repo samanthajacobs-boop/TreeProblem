@@ -29,17 +29,23 @@ if __name__ == '__main__':
         elif sys.argv[2] == 'who':
             if len(sys.argv) == 4:     # extra who arg
                 cmdstring = sys.argv[3]
-                if cmdstring[0] == '+':
-                    cmd = 'list_above'
+                try:
                     amount = int(cmdstring)
-                elif cmdstring[0] == '-':
-                    cmd = 'list_below'
-                    amount = int(cmdstring)*-1
+                except:
+                    print ("Bad amount given:",cmdstring)
+                    exit()
                 else:
-                    cmd = 'who'
                     amount = int(cmdstring)
+
+                    if cmdstring[0] == '+':
+                        cmd = 'list_above'
+                    elif cmdstring[0] == '-':
+                        cmd = 'list_below'
+                        amount = amount*-1
+                    else:
+                        cmd = 'who'
             else:
-                print ("Wrong argument given for who command")
+                print ("No extra argument given for who command")
                 exit()
 
         else:

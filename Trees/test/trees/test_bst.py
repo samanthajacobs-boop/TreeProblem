@@ -116,31 +116,31 @@ class TestBST(unittest.TestCase):
 
     def test_empty_length(self):
         tree = BST()
-        self.assertEqual(len(tree), -1)
+        self.assertEqual(len(tree), 0)
         
 
     def test_height(self):
         tree = BST()
         tree.add_value(100)
-        self.assertEqual(tree.height(), 0)
+        self.assertEqual(tree.height, 0)
         tree.add_value(80)
-        self.assertEqual(tree.height(), 1)
+        self.assertEqual(tree.height, 1)
         tree.add_value(200)
-        self.assertEqual(tree.height(), 1)
+        self.assertEqual(tree.height, 1)
         tree.add_value(60)
-        self.assertEqual(tree.height(), 2)
+        self.assertEqual(tree.height, 2)
         tree.add_value(90)
-        self.assertEqual(tree.height(), 2)
+        self.assertEqual(tree.height, 2)
         tree.add_value(0)
-        self.assertEqual(tree.height(), 3)
+        self.assertEqual(tree.height, 3)
         tree.add_value(-3)
-        self.assertEqual(tree.height(), 4)
+        self.assertEqual(tree.height, 4)
         tree.add_value(1)
-        self.assertEqual(tree.height(), 4)
+        self.assertEqual(tree.height, 4)
     
     def test_empty_height(self):
         tree = BST()
-        self.assertEqual(tree.height(), -1)
+        self.assertEqual(tree.height, -1)
 
 
     def test_get_node(self):

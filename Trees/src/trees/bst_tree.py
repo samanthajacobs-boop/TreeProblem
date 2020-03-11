@@ -28,13 +28,16 @@ class BST(Generic[T, K]):
         self.root = root
         self.key = key
         self.bst_length = self.len_via_tree(root)
+        #self._height = -1
 
-    #@property
+    @property
     def height(self) -> int:
         if self.root:
-            return self.height_recurse(self.root) -1
+            self._height = self.height_recurse(self.root) -1
         else:
-            return -1
+            self._height = -1
+
+        return  self._height
         """
         Compute the height of the tree. If the tree is empty its height is -1
         :return:

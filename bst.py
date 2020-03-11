@@ -151,8 +151,35 @@ if __name__ == '__main__':
         print (x.value)
 
 # remove root
-    print ("removing 100")
+    print ("removing root 100")
     new_tree.remove_value(100)
+    print ("Tree height:", new_tree.height)
+    print ("Tree length:", len(new_tree))
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+    print ("removing root")
+    new_tree = BST()
+
+    new_tree.add_value(6)
+    new_tree.add_value(2)
+    new_tree.add_value(4)
+    new_tree.add_value(3)
+    new_tree.add_value(9)
+    new_tree.add_value(8)
+    new_tree.add_value(13)
+    new_tree.add_value(7)
+    new_tree.add_value(11)
+    results = []
+    new_tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+
+    print ("removing 6")
+    new_tree.remove_value(6)
     print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
     results = []

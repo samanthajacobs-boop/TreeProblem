@@ -217,17 +217,21 @@ class BST(Generic[T, K]):
             elif self.root.left is None and self.root.right:   # only right child
                 self.root = self.root.right       # make right  root
             elif self.root.left and self.root.right:   # two children
+                #print ("Two Child Root Case")
                 delNodeParent = self.root
-                delNode = self.root.right
-                while delNode.left:                # find left most
-                    delNodeParaent = delNode
-                    delNode = delNode.left
+                delNode = self.root.left
+                #print ("Before While right",delNode.value)
+                while delNode.right:                # find left most
+                    #print ("While right",delNode.value)
+                    delNodeParent = delNode
+                    delNode = delNode.right
+                #print ("Parent and succnode",delNodeParent.value,delNode.value)
                 self.root.value = delNode.value
-                if delNode.right:
+                if delNode.left:
                     if key(delNodeParent.value) > key(delNode.value):
-                        delNodeParent.left = delNode.right
+                        delNodeParent.left = delNode.left
                     elif key(delNodeParent.value) < key(delNode.value):
-                        delNodeParent.right = delNode.right
+                        delNodeParent.right = delNode.left
                 else:
                     if key(delNode.value) < key(delNodeParent.value):
                         delNodeParent.left = None
@@ -280,17 +284,17 @@ class BST(Generic[T, K]):
         else:
             self.bst_length -= 1
             delNodeParent = node
-            delNode = node.right
-            while delNode.left:
+            delNode = node.left
+            while delNode.right:
                 delNodeParent = delNode
-                delNode = delNode.left
+                delNode = delNode.right
 		
             node.value = delNode.value
-            if delNode.right:
+            if delNode.left:
                 if key(delNodeParent.value) > key(delNode.value):
-                    delNodeParent.left = delNode.right
+                    delNodeParent.left = delNode.left
                 elif key(delNodeParent.value) < key(delNode.value):
-                    delNodeParent.right = delNode.right
+                    delNodeParent.right = delNode.left
             else:
                 if key(delNode.value) < key(delNodeParent.value):
                     delNodeParent.left = None

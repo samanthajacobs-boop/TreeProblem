@@ -210,7 +210,31 @@ class BST(Generic[T, K]):
             raise EmptyTreeError()
         elif key(self.root.value) == value:     # matches parent
             self.bst_length -= 1
+            if self.root.left is None and self.root.right is None:    # no child
+                self.root = None   #empty tree
+            elif self.root.left and self.root.right is None:   # only left child
+                self.root = self.root.left       # make left root
+            elif self.root.left is None and self.root.right:   # only right child
+                self.root = self.root.right       # make right  root
+            elif self.root.left and self.root.right:   # two children
+                delNodeParent = self.root
+                delNode = self.root.right
+                while delNode.left:                # find left most
+                    delNodeParaent = delNode
+                    delNode = delNode.left
+                self.root.value = delNode.value
+                if delNode.right:
+                    if key(delNodeParent.value) > key(delNode.value):
+                        delNodeParent.left = delNode.right
+                    elif key(delNodeParent.value) < key(delNode.value):
+                        delNodeParent.right = delNode.right
+                else:
+                    if key(delNode.value) < key(delNodeParent.value):
+                        delNodeParent.left = None
+                    else:
+                        delNodeParent.right = None
             return
+        # interior node
         parent = None
         node = self.root
         # find node to remove

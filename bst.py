@@ -69,10 +69,10 @@ if __name__ == '__main__':
 
     tree = BST()
     print( "Empty tree len", len(tree))
-    print( "Empty tree hieght", tree.height())
+    print( "Empty tree hieght", tree.height)
 
     tree = BST(a)
-    print ("Tree height:", tree.height())
+    print ("Tree height:", tree.height)
     print ("Tree length:", len(tree))
     node_min = tree.get_min_node()
     print ("Tree min:", node_min.value) 
@@ -86,7 +86,7 @@ if __name__ == '__main__':
     print ("Tree 50", node_50.value)
     print ("add node")
     tree.add_value(100)
-    print ("Tree height:", tree.height())
+    print ("Tree height:", tree.height)
     print ("Tree length:", len(tree))
 
 
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     node_get_200 = new_tree.get_node(200)
     print ("results", node_get_200.value)
 
-    print ("Tree height:", new_tree.height())
+    print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
 
     print ("new_tree added value")
@@ -117,14 +117,14 @@ if __name__ == '__main__':
 
     print ("removing 20")
     new_tree.remove_value(20)
-    print ("Tree height:", new_tree.height())
+    print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
  #   print ("new_tree get 20", new_tree.get_node(20).value)
 
     print ("new_tree get 200", new_tree.get_node(200).value)
     print ("removing 200")
     new_tree.remove_value(200)
-    print ("Tree height:", new_tree.height())
+    print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
 #    print ("new_tree get 200", new_tree.get_node(200).value)
 
@@ -143,7 +143,7 @@ if __name__ == '__main__':
 # remove a double node
     print ("removing 75")
     new_tree.remove_value(75)
-    print ("Tree height:", new_tree.height())
+    print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
     results = []
     new_tree.inorder(results)
@@ -153,7 +153,7 @@ if __name__ == '__main__':
 # remove root
     print ("removing 100")
     new_tree.remove_value(100)
-    print ("Tree height:", new_tree.height())
+    print ("Tree height:", new_tree.height)
     print ("Tree length:", len(new_tree))
     results = []
     new_tree.inorder(results)

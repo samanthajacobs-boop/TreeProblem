@@ -1,3 +1,5 @@
+
+
 import unittest
 from typing import Optional, Callable, TypeVar, Generic
 from Trees.src.errors import EmptyTreeError, MissingValueError
@@ -114,27 +116,27 @@ class TestBST(unittest.TestCase):
 
     def test_empty_length(self):
         tree = BST()
-        self.assertEqual(len(tree), 0)
+        self.assertEqual(len(tree), -1)
         
 
     def test_height(self):
         tree = BST()
         tree.add_value(100)
-        self.assertEqual(tree.height(), 1)
+        self.assertEqual(tree.height(), 0)
         tree.add_value(80)
-        self.assertEqual(tree.height(), 2)
+        self.assertEqual(tree.height(), 1)
         tree.add_value(200)
-        self.assertEqual(tree.height(), 2)
+        self.assertEqual(tree.height(), 1)
         tree.add_value(60)
-        self.assertEqual(tree.height(), 3)
+        self.assertEqual(tree.height(), 2)
         tree.add_value(90)
-        self.assertEqual(tree.height(), 3)
+        self.assertEqual(tree.height(), 2)
         tree.add_value(0)
-        self.assertEqual(tree.height(), 4)
+        self.assertEqual(tree.height(), 3)
         tree.add_value(-3)
-        self.assertEqual(tree.height(), 5)
+        self.assertEqual(tree.height(), 4)
         tree.add_value(1)
-        self.assertEqual(tree.height(), 5)
+        self.assertEqual(tree.height(), 4)
     
     def test_empty_height(self):
         tree = BST()
@@ -254,7 +256,9 @@ class TestBST(unittest.TestCase):
         tree.add_value(80)
         tree.add_value(200)
         tree.add_value(90)
+        tree.add_value(95)
         tree.add_value(70)
+        tree.add_value(75)
         tree.add_value(150)
 
         tree.remove_value(80)
@@ -266,8 +270,65 @@ class TestBST(unittest.TestCase):
             value = x.value
             values.append(value)
 
-        self.assertEqual(values, [70, 90, 100, 150, 200])
-
+        self.assertEqual(values, [70, 75, 90, 95, 100, 150, 200])
+#    def test_add_node_with_children(self):
+#        tree = BST()
+#        a = BSTNode(50)
+#        b = BSTNode(40)
+#        c = BSTNode(35)
+#        d = BSTNode(37)
+#        e = BSTNode(45)
+#        f = BSTNode(90)
+#        g = BSTNode(150)
+#
+#        a.left = b
+#        b.left = c
+#        c.right = d
+#        b.right = e
+#
+#        m =BSTNode(45, children = [a])
+#        
+#        results = []
+#        self.AssertEqual(len(tree), 6)
+#
+#    def test_add_node_with_two_children(self):
+#        tree1 = BST(m)
+#        a = BSTNode(50)
+#        b = BSTNode(40)
+#        c = BSTNode(35)
+#        d = BSTNode(37)
+#        e = BSTNode(45)
+#        f = BSTNode(90)
+#        g = BSTNode(150)
+#
+#        a.left = b
+#        b.left = c
+#        c.right = d
+#        b.right = e
+#        
+#        results = []
+#        m = BSTNode(65, chilren = [a,f])
+#        self.AssertEqual(len(tree1), 7)
+#
+#    def test_add_parent(self):
+#        p = BSTNode(200)
+#        n = BSTNode(75, children = [m, g], parent = p)
+#        tree2 = BST(p)
+#        a = BSTNode(50)
+#        b = BSTNode(40)
+#        c = BSTNode(35)
+#        d = BSTNode(37)
+#        e = BSTNode(45)
+#        f = BSTNode(90)
+#        g = BSTNode(150)
+#
+#        a.left = b
+#        b.left = c
+#        c.right = d
+#        b.right = e
+#        
+#        results = []
+#        self.AssertEqual(len(tree2), 10)
 
 if __name__ == '__main__':
     unittest.main()

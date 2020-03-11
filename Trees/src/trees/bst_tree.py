@@ -27,28 +27,61 @@ class BST(Generic[T, K]):
         """
         self.root = root
         self.key = key
+        self.bst_length = self.len_via_tree(root)
 
     #@property
     def height(self) -> int:
         if self.root:
-            return self.root.height()
+            return self.height_recurse(self.root) -1
         else:
             return -1
         """
         Compute the height of the tree. If the tree is empty its height is -1
         :return:
         """
+    def height_recurse(self, node: BSTNode[T]) -> int:
+        if node.left and node.right:
+            return 1 + max(self.height_recurse(node.left), self.height_recurse(node.right))
+        elif node.left:
+            return 1 + self.height_recurse(node.left)
+        elif node.right:
+            return 1 + self.height_recurse(node.right)
+        else:
+            return 1
         
-
     def __len__(self) -> int:
         """
         :return: the number of nodes in the tree
         """
-        if self.root is None:
+        return self.bst_length
+
+#    def __len__(self) -> int:
+#        """
+#        :return: the number of nodes in the tree
+#        """
+#        if self.root is None:
+#            return 0
+#        else:
+#            return self.length(self.root)
+
+    def len_via_tree(self,root: BSTNode[T]) -> int:
+        """
+        :return: the number of nodes in the tree
+        """
+        if root is None:
             return 0
         else:
-            return self.root.length()
-        
+            return self.length(root)
+
+    def length(self, node: BSTNode[T]) -> int:
+        if node.left and node.right:
+            return 1 + self.length(node.left) +  self.length(node.right)
+        elif node.left:
+            return 1 + self.length(node.left)
+        elif node.right:
+            return 1 + self.length(node.right)
+        else:
+            return 1
         
 
     def add_value(self, value: T) -> None:
@@ -57,6 +90,7 @@ class BST(Generic[T, K]):
         :param value:
         :return:
         """
+        self.bst_length += 1
         if self.root:
             return self.insert_recurse(value, self.root,self.key)
         else:
@@ -172,6 +206,7 @@ class BST(Generic[T, K]):
         if self.root is None:
             raise EmptyTreeError()
         elif key(self.root.value) == value:     # matches parent
+            self.bst_length -= 1
             return
         parent = None
         node = self.root
@@ -186,9 +221,10 @@ class BST(Generic[T, K]):
         # if not found has error
         if node is None or key(node.value) != value:
             raise MissingValueError()
-
+        
         # easy case, no children
         elif node.left is None and node.right is None:
+            self.bst_length -= 1
             if value < key(parent.value):
                 parent.left = None
             else:
@@ -197,6 +233,7 @@ class BST(Generic[T, K]):
 
         # left node only
         elif node.left and node.right is None:
+            self.bst_length -= 1
             if value < key(parent.value):
                 parent.left = node.left
             else:
@@ -205,6 +242,7 @@ class BST(Generic[T, K]):
 
         # right node only
         elif node.left is None and node.right:
+            self.bst_length -= 1
             if value < key(parent.value):
                 parent.left = node.right
             else:
@@ -213,6 +251,7 @@ class BST(Generic[T, K]):
 
         # both children exist
         else:
+            self.bst_length -= 1
             delNodeParent = node
             delNode = node.right
             while delNode.left:

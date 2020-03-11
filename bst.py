@@ -7,11 +7,69 @@ if __name__ == '__main__':
     c = BSTNode(35)
     d = BSTNode(37)
     e = BSTNode(45)
+    f = BSTNode(90)
 
     a.left = b
     b.left = c 
     c.right = d
     b.right = e
+
+    print ( "create tree with 5 nodes")
+    tree = BST(a)
+    print ("len ex 5: ", len(tree))
+    print ("add node", tree.add_value(100))
+    print ("len ex 6: ", len(tree))
+    print ("remove node", tree.remove_value(50))
+    print ("len ex 5: ", len(tree))
+
+    results = []
+    tree.inorder(results)
+    for x in results:
+        print (x.value)
+
+
+    print ("\n Testing adding children")
+    a = BSTNode(50)
+    b = BSTNode(40)
+    c = BSTNode(35)
+    d = BSTNode(37)
+    e = BSTNode(45)
+    f = BSTNode(90)
+    g = BSTNode(150)
+    a.left = b
+    b.left = c 
+    c.right = d
+    b.right = e
+    m = BSTNode(45, children=[a])
+    tree1 = BST(m)
+    print ("len ex 6: ", len(tree1))
+    results = []
+    tree1.inorder(results)
+    for x in results:
+        print (x.value)
+    del m
+    m = BSTNode(65, children=[a,f])
+    tree1 = BST(m)
+    print ("len ex 7: ", len(tree1))
+    results = []
+    tree1.inorder(results)
+    for x in results:
+        print (x.value)
+
+    print ("\n Testing adding parent")
+    p = BSTNode(200)
+    n = BSTNode(75, children=[m,g],parent=p)
+    tree2 = BST(p)
+    print ("len ex 10: ", len(tree2))
+    results = []
+    tree2.inorder(results)
+    for x in results:
+        print (x.value)
+
+
+    tree = BST()
+    print( "Empty tree len", len(tree))
+    print( "Empty tree hieght", tree.height())
 
     tree = BST(a)
     print ("Tree height:", tree.height())
@@ -30,10 +88,6 @@ if __name__ == '__main__':
     tree.add_value(100)
     print ("Tree height:", tree.height())
     print ("Tree length:", len(tree))
-
-
-
-
 
 
     new_tree = BST()
